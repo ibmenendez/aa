@@ -13,8 +13,10 @@ RUN \
 	apt-get update \
 	&& apt-get install nano \
 	&& apt-get install apache2 --yes \
-	&& mkdir /var/www/html/sitio1 /var/www/html/sitio2
-
+	&& mkdir /var/www/html/sitio1 /var/www/html/sitio2 \
+	&& apt-get install -y proftpd && apt-get install openssl \
+	&& useradd -m -d /var/www/html/sitio1 -s /usr/sbin/nologin -p $(openssl passwd -1 ibai1) ibai1 \
+	&& useradd -m -d /srv/epi -s /usr/sbin/nologin -p $(openssl passwd -1 epi) epi
 
 # Copiamos el index al directorio por defecto del servidor Web
 COPY index1.html index2.html sitio1.conf sitio2.conf sitio1.key sitio1.cer /
